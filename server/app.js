@@ -1,13 +1,20 @@
 const express = require('express')
 const cors = require('cors')
+const bodyParser = require('body-parser')
+const path = require('path')
 const app = express()
 
-app.use(express.json())
 app.use(cors())
-let todos = [{ title: 'gym', description: 'Go to gym ftom 7-9 pm' }]
+app.use(express.static('../public'))
+app.use(bodyParser.json())
+let todos = []
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'public', 'index.html'))
+})
 
 app.get('/todos', (req, res) => {
-  res.status(200).json(todos)
+  return res.status(200).json(todos)
 })
 
 app.get('/todos/:id', (req, res) => {
@@ -17,9 +24,9 @@ app.get('/todos/:id', (req, res) => {
   })
 
   if (todo) {
-    res.status(200).json(todo)
+    return res.status(200).json(todo)
   } else {
-    res.status(404).json({ msg: 'todo not found' })
+    return res.status(404).send()
   }
 })
 
@@ -27,7 +34,7 @@ app.post('/todos', (req, res) => {
   const id = Math.floor(Math.random() * 100000)
   const { title, description } = req.body
   if (!title || !description) {
-    res.status(401).json({ msg: 'Please provide title and description' })
+    return res.status(401).json({ msg: 'Please provide title and description' })
   }
 
   let newTodo = {
@@ -39,48 +46,42 @@ app.post('/todos', (req, res) => {
 
   todos.push(newTodo)
 
-  res.status(201).json({ id })
+  return res.status(201).json(newTodo)
 })
 
 app.put('/todos/:id', (req, res) => {
   const { id } = req.params
-  const todo = todos.find((todo) => {
+  const todoIndex = todos.findIndex((todo) => {
     return todo.id === Number(id)
   })
 
-  if (todo) {
-    todo.title = req.body.title
-    if (req.body.completed) {
-      todo.completed = req.body.completed
-    }
-    todo.description = req.body.description
+  if (todoIndex !== -1) {
+    todos[todoIndex].title = req.body.title
+    todos[todoIndex].completed = req.body.completed
+    todos[todoIndex].description = req.body.description
 
-    res.status(200).json({ msg: 'todo updated' })
+    return res.status(200).json({ msg: 'todo updated' })
   } else {
-    res.status(404).json({ msg: 'Todo not found' })
+    return res.status(404).send()
   }
 })
 
 app.delete('/todos/:id', (req, res) => {
   const { id } = req.params
-  const todo = todos.find((todo) => {
+  const todoIndex = todos.findIndex((todo) => {
     return todo.id === Number(id)
   })
 
-  if (todo) {
-    todo.id = undefined
-    todo.title = undefined
-    todo.completed = undefined
-    todo.description = undefined
-
-    res.status(200).json({ msg: 'todo item deleted' })
+  if (todoIndex !== -1) {
+    todos.splice(todoIndex, 1)
+    return res.status(200).json({ msg: 'todo item deleted' })
   } else {
-    res.status(404).json({ msg: 'Todo not found' })
+    return res.status(404).send()
   }
 })
 
 app.use((req, res, next) => {
-  res.status(404).json({ msg: 'Route not found' })
+  return res.status(404).json({ msg: 'Route not found' })
 })
 
 app.listen(3002)

@@ -1,0 +1,127 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+#mainArea {
+  margin-top: 20px;
+}
+
+.todo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+label {
+  margin-right: 10px;
+}
+.todo span {
+  margin-right: 10px;
+}
+
+.todo button {
+  background-color: #f44336;
+  color: #fff;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.todo button:hover {
+  background-color: #d32f2f;
+}
+
+.todo button:focus {
+  outline: none;
+}
+
+.todo input[type='text'] {
+  /* display: block; */
+  width: 80%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: vertical;
+}
+
+.todo #title,
+.todo #description {
+  flex: 1;
+}
+
+#mainForm {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  width: 80%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  margin-top: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#mainForm h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#mainForm input[type='text'] {
+  padding: 10px;
+  margin: auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: vertical;
+}
+
+#mainForm button {
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  font-size: 19px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 400px;
+}
+
+#mainForm button:hover {
+  background-color: #0871e0;
+}
+input {
+  width: 80%;
+  clear: both;
+  font-size: 18px;
+}
+label {
+  display: inline-block;
+  width: 100px;
+  text-align: right;
+}
+
+.todo {
+  width: 80%;
+  max-width: 400px;
+  margin: 10px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.textarea {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* margin-right: 16px; */
+  width: 100%;
+}
